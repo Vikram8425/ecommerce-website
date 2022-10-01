@@ -9,8 +9,8 @@ import com.ecom.payload.OrderRequest;
 
 public interface OrderService {
  public OrderDto create(OrderRequest request,String username);
- public List<OrderDto> getAllOrder();
- public OrderDto getOrder(OrderDto orderDto,int OrderId);
+ public List<OrderDto> getAllOrder(String p);
+ public OrderDto getOrder(int OrderId);
  public void deleteOrder(int orderId);
  public OrderDto updateOrder(int orderId,OrderDto orderDto);
 

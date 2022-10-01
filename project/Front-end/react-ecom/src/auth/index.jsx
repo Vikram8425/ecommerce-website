@@ -21,6 +21,7 @@ export const checkLogin = () => {
       return true;
     }
   }
+  
 
   return false;
 };
@@ -46,3 +47,11 @@ export const getCurrentUser = () => {
     return null;
   }
 };
+
+
+// admin Login 
+export const adminLogin=()=>{
+  let user=getCurrentUser();
+   let flag=user.roles.find(r=>r.id===5245)
+  return flag?true:false;
+}

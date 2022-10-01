@@ -9,6 +9,7 @@ import { color } from '@mui/system'
 import { toast } from 'react-toastify'
 import {createOrder as createOrderService} from '../Service/order-service'
 import { useNavigate } from 'react-router-dom'
+import { checkLogin } from '../auth'
 function Cart() {
   const navigate=useNavigate()
   const value=useContext(context1)
@@ -133,7 +134,7 @@ const CartItemsHtml=()=>{
                   <Button onClick={(event)=>removeItemToCart(cartItem)} color='danger' size="sm" className='my-3 ms-3'>Remove Item</Button>
                  </div>
 
-                 <CardFooter>{cartItem.product.productDesc}</CardFooter>
+                 <CardFooter dangerouslySetInnerHTML={ {__html:cartItem.product.productDesc} } ></CardFooter>
                  
               </Card>
             ))} 

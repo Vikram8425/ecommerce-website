@@ -2,6 +2,9 @@ package com.ecom.payload;
 
 import com.ecom.Model.Order;
 import com.ecom.Model.Product;
+import com.ecom.Model.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class OrderItemDto {
 	private int orderItemId;
@@ -9,7 +12,13 @@ public class OrderItemDto {
 	private double totalProductPrize;
 	private int quantity;
 	Order order;
-	
+	private User user;
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public int getOrderItemId() {
 		return orderItemId;
 	}

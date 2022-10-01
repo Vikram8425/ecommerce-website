@@ -13,8 +13,8 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState({
     iteam: [],
   });
-
   return (
+
     <context1.Provider value={{cart:cart, setCart:setCart}}>
       {children}
     </context1.Provider>

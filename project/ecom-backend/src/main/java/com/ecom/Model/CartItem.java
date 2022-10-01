@@ -7,7 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class CartItem {
@@ -16,7 +18,7 @@ public class CartItem {
 	private int cartIteamId;
 	
 	 @ManyToOne
-	 @JsonIgnore
+	@JsonBackReference
     private Cart cart;
     
 	private int quantity;

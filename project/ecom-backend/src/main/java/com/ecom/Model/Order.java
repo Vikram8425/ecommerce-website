@@ -12,7 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+
+
 @Entity(name="ecom_order")
 public class Order {
 	
@@ -26,16 +31,19 @@ public class Order {
 	private Double orderAmout;
 	private String billingAddress;
 	private Date orderDelivered;
+	
+	
 	@OneToOne
 	private User user;
-	@JsonIgnore
+	
+	@JsonManagedReference
 	@OneToMany(mappedBy="order",cascade = CascadeType.ALL)
-private	Set<OrderItem> item=new HashSet<>();
+    private	Set<OrderItem> item=new HashSet<>();
+
 
 	public int getOrderId() {
 		return orderId;
 	}
-
 
 
 	public void setOrderId(int orderId) {
@@ -43,11 +51,9 @@ private	Set<OrderItem> item=new HashSet<>();
 	}
 
 
-
 	public String getOrderStatus() {
 		return orderStatus;
 	}
-
 
 
 	public void setOrderStatus(String orderStatus) {
@@ -55,11 +61,9 @@ private	Set<OrderItem> item=new HashSet<>();
 	}
 
 
-
 	public String getPaymentStatus() {
 		return paymentStatus;
 	}
-
 
 
 	public void setPaymentStatus(String paymentStatus) {
@@ -67,11 +71,9 @@ private	Set<OrderItem> item=new HashSet<>();
 	}
 
 
-
 	public Date getOrderCreated() {
 		return orderCreated;
 	}
-
 
 
 	public void setOrderCreated(Date orderCreated) {
@@ -79,11 +81,9 @@ private	Set<OrderItem> item=new HashSet<>();
 	}
 
 
-
 	public Double getOrderAmout() {
 		return orderAmout;
 	}
-
 
 
 	public void setOrderAmout(Double orderAmout) {
@@ -91,11 +91,9 @@ private	Set<OrderItem> item=new HashSet<>();
 	}
 
 
-
 	public String getBillingAddress() {
 		return billingAddress;
 	}
-
 
 
 	public void setBillingAddress(String billingAddress) {
@@ -103,16 +101,22 @@ private	Set<OrderItem> item=new HashSet<>();
 	}
 
 
-
 	public Date getOrderDelivered() {
 		return orderDelivered;
 	}
 
 
-
 	public void setOrderDelivered(Date orderDelivered) {
 		this.orderDelivered = orderDelivered;
 	}
+
+
+	
+
+
+	
+
+
 
 
 
@@ -121,11 +125,9 @@ private	Set<OrderItem> item=new HashSet<>();
 	}
 
 
-
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 
 
 	public Set<OrderItem> getItem() {
@@ -133,12 +135,10 @@ private	Set<OrderItem> item=new HashSet<>();
 	}
 
 
-
 	public void setItem(Set<OrderItem> item) {
 		this.item = item;
 	}
-	 
-		
-	
 
+
+	
 }

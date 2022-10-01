@@ -1,5 +1,6 @@
 
 
+import { useNavigate } from "react-router-dom";
 import {card,CardHeader,CardBody, Container,Row,Col, Button} from "reactstrap";
 import Base from './Base'
 
@@ -26,7 +27,7 @@ const Home=({title="default titile",description="default Description ",buttonNam
         border:'1px solid red',
         margin:'10px'
       }
-
+      const navigate=useNavigate()
       
     return(
         // Dynamic Value By props from App.js
@@ -47,10 +48,11 @@ const Home=({title="default titile",description="default Description ",buttonNam
             
         // </card>
         // </div> 
+      
 
-       <Base>
-       <div className="banner">
-            <Container>
+       <Base >
+       <div className="banner" style={{ backgroundColor: 'blue'}}>
+            <Container >
                 <Row>
                     <Col>
                         <h1 className="text-center" style={{fontWeight:1000,textTransform:"uppercase"}} >Welcome To my Online Store</h1>
@@ -66,7 +68,7 @@ In recent years, e-commerce has enjoyed a massive boost from the rise of smartph
 What is an e-commerce</p>
 
                     <Container className="text-center" >
-                        <Button className="rounded-0" size="lg" color="primary"   >Go to Store</Button>
+                        <Button style={{marginBlock:10}} onClick={()=>navigate("/store/all")} className="rounded-0" size="lg" color="success"   >Go to Store</Button>
                     </Container>
             
                     </Col>

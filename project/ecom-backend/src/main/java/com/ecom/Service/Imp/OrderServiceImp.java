@@ -90,16 +90,19 @@ public class OrderServiceImp implements OrderService{
 	}
 
 	@Override
-	public List<OrderDto> getAllOrder() {
-		List<Order> findAll = this.orderRepository.findAll();
+	public List<OrderDto> getAllOrder(String p) {
+		
+	    User findByEmail = this.userRepository.findByEmail(p).orElseThrow(()->new ResourceNotFoundException("User Not Found"));
+		List<Order> findAll = this.orderRepository.findByUser(findByEmail).orElseThrow(()->new ResourceNotFoundException("Order Not Found"));
+		
 		List<OrderDto> collect = findAll.stream().map((each) -> this.mapper.map(each,OrderDto.class)).collect(Collectors.toList());
 		return collect;
 	}
 
 	@Override
-	public OrderDto getOrder(OrderDto orderDto, int OrderId) {
-		// TODO Auto-generated method stub
-		return null;
+	public OrderDto getOrder(int OrderId) {
+		 Order order = this.orderRepository.findById(OrderId).orElseThrow(()->new ResourceNotFoundException("ds"));
+		return this.mapper.map(order,OrderDto.class);
 	}
 
 	@Override

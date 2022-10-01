@@ -7,7 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class OrderItem {
 	
@@ -18,10 +20,10 @@ public class OrderItem {
 	private Product product;
 	private double totalProductPrize;
 	private int quantity;
-	
+	@JsonBackReference
 	@ManyToOne
     private	Order order;
-	
+
 	public int getOrderItemId() {
 		return orderItemId;
 	}
@@ -61,7 +63,6 @@ public class OrderItem {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	
-	
 
+	
 }

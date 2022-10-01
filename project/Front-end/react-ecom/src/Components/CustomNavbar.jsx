@@ -15,7 +15,7 @@ import {
   NavbarText,
   Button,
 } from 'reactstrap';
-import {checkLogin,getCurrentUser,logout}from '../auth'
+import {checkLogin,getCurrentUser,logout,adminLogin}from '../auth'
 import { context1 } from './Context';
 
 
@@ -83,13 +83,25 @@ function CustomNavbar(value) {
               </NavItem>
               </Nav>
               </>
-
-
-              
-
              )}
+
+            
+
              {checkLogin() && (
-              <>
+              <> {
+                (adminLogin() &&
+                (
+                  <>
+                  <NavItem>
+                    <NavLink tag={ReactLink} to="/admin-dashboard">
+                      Admin DashBoard
+                    </NavLink>
+                  </NavItem>
+                  </>
+                ))
+               }
+
+
                 <NavItem>
           <NavLink tag={ReactLink} to="/user/dashboard">
               <h5>{getCurrentUser().name}</h5>

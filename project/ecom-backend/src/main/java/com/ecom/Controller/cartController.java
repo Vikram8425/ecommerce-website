@@ -43,6 +43,7 @@ public class cartController {
 		return new ResponseEntity<CartDto>(item,HttpStatus.OK);
 	}
 	
+	
 	@PutMapping("/{productId}")
 	public ResponseEntity<CartDto> removeProduct(@PathVariable int  productId,Principal principal){
 		CartDto removeCartItem = this.cartservice.removeCartItem(principal.getName(), productId);

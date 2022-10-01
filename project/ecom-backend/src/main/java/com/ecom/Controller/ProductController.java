@@ -48,10 +48,11 @@ private	ProductService productService;
 private String imagePath;
 	
 // upload the product Images
+
 @PostMapping("products/images/{productId}")	
 public ResponseEntity<?>uploadImageOfProduct(@PathVariable int productId,
 		@RequestParam("product_image") MultipartFile file ) throws Exception{
-		
+		System.out.println(productId);
 	  ProductDto product = this.productService.getProduct(productId);
 	  
 		String imageName=null;
@@ -83,8 +84,8 @@ public void downloadImage(@PathVariable int productId, HttpServletResponse respo
     response.setContentType(MediaType.IMAGE_JPEG_VALUE);
     OutputStream outputStream = response.getOutputStream();
     StreamUtils.copy(resource, outputStream);
-
 }
+
 
 	
 	@PreAuthorize("hasRole('ADMIN')")

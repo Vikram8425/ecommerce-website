@@ -12,11 +12,11 @@ import com.ecom.Model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class CartDto {
-	
+
 private int cartId;
-	
+  
 	private Set<CartItem> iteam=new HashSet<>();
-      @JsonIgnore
+	@JsonIgnore
 	 private  User user;
 
 	public int getCartId() {

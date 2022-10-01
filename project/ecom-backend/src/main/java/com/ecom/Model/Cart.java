@@ -11,19 +11,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cartId;
-	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cart" ,cascade=CascadeType.ALL,orphanRemoval = true)
 	private Set<CartItem> iteam=new HashSet<>();
-			
+	
 	   @OneToOne
-	   
 	 private  User user;
 
 	public int getCartId() {

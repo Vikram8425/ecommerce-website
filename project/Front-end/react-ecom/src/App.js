@@ -17,6 +17,15 @@ import Store from './Components/Store';
 import Banner from './Components/Banner';
 import Cart from './Components/Cart';
 import { CartProvider } from './Components/Context';
+import AdminViewproduct from './Components/pages/admin/AdminViewproduct';
+import Admindashboard from './Components/pages/admin/Admindashboard';
+import Adminhome from './Components/pages/admin/Adminhome';
+import Addproduct from './Components/pages/admin/Addproduct';
+import Uploadimage from './Components/pages/admin/Uploadimage';
+import Addcategory from './Components/pages/admin/Addcategory';
+import Viewproduct from '../src/Components/Viewproduct'
+import Updateproduct from './Components/pages/admin/Updateproduct';
+
 const sayHello=()=>{
   alert("Hello,How are you");
   }
@@ -52,8 +61,24 @@ function App() {
            <Route path="/about"   element={<About/>}/>
            <Route path="/login"   element={<Login/>}/>
            <Route path="store/:categoryId" element={<Store/>}/>   
-           <Route path="/signup"   element={<Signup/>}/>
+           <Route path="viewProduct/:productId" element={<Viewproduct/>}/> 
 
+           {/* Admin-DashBoard Start */}
+           
+           <Route path="/admin-dashboard"  element={<Admindashboard/>}>
+          
+           <Route path="home" element={<Adminhome/>}/>
+           <Route path="addProduct" element={<Addproduct/>}/>
+           <Route path="uploadproductimage" element={<Uploadimage/>} />
+           <Route path="category" element={<Addcategory/>} />
+           <Route path="viewproduct" element={<AdminViewproduct/>} />
+           <Route path="updateProduct/:productId" element={<Updateproduct/>} />
+           
+           
+            </Route>  
+        {/* Admin-DashBoard End */}
+
+           <Route path="/signup"   element={<Signup/>}/>  
            <Route path="/user" element={<PrivateRoutes/>}>
            <Route path="dashboard" element={<Dashboard/>}/>
            <Route path="cart"  element={<Cart/>}/>

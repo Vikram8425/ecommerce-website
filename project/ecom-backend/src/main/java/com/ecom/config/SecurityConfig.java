@@ -32,9 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
     @Autowired
 	UserDetailsService userDetailsService;
-    public static String[] PUBLIC_URL= {"/users/","/auth/login","/product/"
+    public static String[] PUBLIC_URL= {"/users/","/auth/login","/product/",
+    		"/products/images/11"
     		
     };
+    
     
     @Autowired
     private JwtAuthenticationEntryPoint entryPoint;
@@ -48,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.disable()
 		.authorizeRequests()
 		.antMatchers(PUBLIC_URL).permitAll()       //HttpMethod.POST,"/users/
-		 .antMatchers(HttpMethod.GET).permitAll()
+		.antMatchers(HttpMethod.GET).permitAll() 
 		.anyRequest()
 		.authenticated()
 		//.and()
