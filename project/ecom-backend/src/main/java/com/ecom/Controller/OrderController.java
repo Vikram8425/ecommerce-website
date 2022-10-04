@@ -40,14 +40,23 @@ public class OrderController {
 	   return new ResponseEntity<OrderDto>(create,HttpStatus.CREATED);
 	}
 	
-	
+	//Getting all Order from user
 	@GetMapping("/")
-	public ResponseEntity<List<OrderDto>>getAllOrder(Principal p){
+	public ResponseEntity<List<OrderDto>>getOrderByUser(Principal p){
 	          
 		      List<OrderDto> allOrder = this.orderService.getAllOrder(p.getName());
 		
 		return new ResponseEntity<List<OrderDto>>(allOrder,HttpStatus.OK);
 	}
+	
+	//Getting all Order 
+	@GetMapping("/list")
+	public ResponseEntity<List<OrderDto>>getAllOrder(){
+		   List<OrderDto> listAllOrder = this.orderService.listAllOrder();
+		return new ResponseEntity<List<OrderDto>>(listAllOrder,HttpStatus.OK);
+	}
+	
+	
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<ApiResponse> delete(@PathVariable int id){
@@ -56,7 +65,7 @@ public class OrderController {
 		
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Order Deleted",true),HttpStatus.OK);
 	}
-	@PreAuthorize("hasRole('ADMIN','STAFF')")   
+	@PreAuthorize("hasRole('ADMIN')")   
 	@PutMapping("/{id}")
 	public ResponseEntity<OrderDto>update(@Valid @PathVariable int id,@RequestBody OrderDto orderDto){
 		

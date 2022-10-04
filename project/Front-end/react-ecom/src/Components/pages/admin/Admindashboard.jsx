@@ -35,6 +35,18 @@ const AdmindashboardHtml=()=>{
                  <h5>View Product</h5>
                </ListGroupItem>
 
+               <ListGroupItem tag={Link} to={'/admin-dashboard/adminuser'} action='true' >
+                 <h5>Manage User</h5>
+               </ListGroupItem>
+
+               <ListGroupItem tag={Link} to={'/admin-dashboard/order'} action='true' >
+                 <h5>Manage Order</h5>
+               </ListGroupItem>
+
+              < ListGroupItem tag={Link} to={'/admin-dashboard/cat'} action='true' >
+                 <h5>Manage Category</h5>
+               </ListGroupItem>
+
              </ListGroup>
              </Col>
 

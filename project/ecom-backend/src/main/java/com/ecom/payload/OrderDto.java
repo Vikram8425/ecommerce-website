@@ -17,14 +17,15 @@ public class OrderDto {
 	private String billingAddress;
 	private Date orderDelivered;
    private	Set<OrderItem> item=new HashSet<>();
-   @JsonIgnore
-   private User user;
+
+   private UserDto user;
 
 
-public User getUser() {
+
+public UserDto getUser() {
 	return user;
 }
-public void setUser(User user) {
+public void setUser(UserDto user) {
 	this.user = user;
 }
 public int getOrderId() {

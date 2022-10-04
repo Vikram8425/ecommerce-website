@@ -1,8 +1,19 @@
 import React from "react"
 import { Container,Row,Col } from "reactstrap"
 import Base from "./Base"
+import TextTransition, { presets } from "react-text-transition";
 
-const About=()=>{
+
+function About(){
+
+    const TEXTS = [
+        "Forest",
+        "Building",
+        "Tree",
+        "Color"
+      ];
+
+    
 
     return(
         <Base>

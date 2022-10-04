@@ -33,7 +33,7 @@ import com.ecom.payload.UserDto;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin("*")
+
 public class UserController {
 	
 	@Autowired
@@ -65,7 +65,7 @@ public class UserController {
     	return new ResponseEntity<UserDto>(userdto,HttpStatus.OK);
     }
 	
-	@PreAuthorize("hasRole('ADMIN','STAFF')")   
+	@PreAuthorize("hasRole('ADMIN')")   
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<ApiResponse> delete(@PathVariable int userId) {
 		
@@ -74,7 +74,7 @@ public class UserController {
 	  return new ResponseEntity<ApiResponse>(new ApiResponse("User is Deleted",true),HttpStatus.OK);
 		
 	}
-	@PreAuthorize("hasRole('ADMIN','STAFF')")   
+	@PreAuthorize("hasRole('ADMIN')") 
 	@GetMapping("/")
 	public ResponseEntity<List<UserDto>>getAll() {
 		

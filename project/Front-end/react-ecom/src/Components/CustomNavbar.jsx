@@ -38,12 +38,7 @@ function CustomNavbar(value) {
             <NavItem>
               <NavLink  tag={ReactLink} to="/store/all">Store</NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink tag={ReactLink} to="/services">
-                Services
-              </NavLink>
-              
-            </NavItem>
+            
             <NavItem>
               <NavLink  tag={ReactLink} to="/about">About</NavLink>
             </NavItem>
@@ -93,7 +88,7 @@ function CustomNavbar(value) {
                 (
                   <>
                   <NavItem>
-                    <NavLink tag={ReactLink} to="/admin-dashboard">
+                    <NavLink tag={ReactLink} to="/admin-dashboard/home">
                       Admin DashBoard
                     </NavLink>
                   </NavItem>

@@ -38,7 +38,7 @@ public class CategoryServiceImp implements CategoryService {
 
 	@Override
 	public void deleteCategory(int categoryId) {
-		Category cat = this.categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("User not Found"));
+		Category cat = this.categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not Found"));
 		
 		this.categoryRepository.delete(cat);
 	}

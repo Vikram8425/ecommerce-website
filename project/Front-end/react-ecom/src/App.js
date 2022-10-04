@@ -25,6 +25,11 @@ import Uploadimage from './Components/pages/admin/Uploadimage';
 import Addcategory from './Components/pages/admin/Addcategory';
 import Viewproduct from '../src/Components/Viewproduct'
 import Updateproduct from './Components/pages/admin/Updateproduct';
+import Adminuser from './Components/pages/admin/Adminuser';
+import UpdateUser from './Components/pages/admin/UpdateUser';
+import Order from './Components/pages/admin/Order';
+import UpdateOrder from './Components/pages/admin/UpdateOrder';
+import Category from './Components/pages/admin/Category';
 
 const sayHello=()=>{
   alert("Hello,How are you");
@@ -66,14 +71,17 @@ function App() {
            {/* Admin-DashBoard Start */}
            
            <Route path="/admin-dashboard"  element={<Admindashboard/>}>
-          
            <Route path="home" element={<Adminhome/>}/>
            <Route path="addProduct" element={<Addproduct/>}/>
            <Route path="uploadproductimage" element={<Uploadimage/>} />
            <Route path="category" element={<Addcategory/>} />
            <Route path="viewproduct" element={<AdminViewproduct/>} />
            <Route path="updateProduct/:productId" element={<Updateproduct/>} />
-           
+           <Route path="adminuser" element={<Adminuser/>} />
+           <Route path="update-user/:userId" element={<UpdateUser/>} />
+           <Route path="order" element={<Order/>} />
+           <Route path="/admin-dashboard/order/update/:orderId" element={<UpdateOrder/>} />
+           <Route path="/admin-dashboard/cat" element={<Category/>}/>
            
             </Route>  
         {/* Admin-DashBoard End */}

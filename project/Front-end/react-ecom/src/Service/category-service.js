@@ -11,3 +11,8 @@ return PrivateHttp.post(`/cat/`,{
 ).then(res=>res.data)
 }
 
+export const deleteCategory=(categoryId)=>{
+
+return PrivateHttp.delete(`/cat/${categoryId}`).then(res=>res.data)
+}
+

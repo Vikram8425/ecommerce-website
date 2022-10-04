@@ -12,3 +12,17 @@ export const createOrder=(orderDetails)=>{
 export const getOrder=()=>{
     return PrivateHttp.get(`/order/`).then(response=>response.data)
 }
+
+export const getListOfOrder=()=>{
+    return PrivateHttp.get(`/order/list`).then(res=>res.data)
+}
+export const updateOrder=(order,orderId)=>{
+    return PrivateHttp.put(`order/${orderId}`,{
+        "orderStatus":order.orderStatus,
+        "paymentStatus":order.paymentStatus,
+        "orderDelivered":order.orderDelivered
+    }).then(res=>res.data)
+}
+export const deleteOrder=(orderId)=>{
+    return PrivateHttp.delete(`order/${orderId}`).then(res=>res.data)
+}

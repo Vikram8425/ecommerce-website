@@ -7,6 +7,7 @@ import {checkLogin, checkLogin1, getCurrentUser, logout} from '../auth'
 import Base from './Base';
 import { getOrder } from '../Service/order-service';
 import { Base_url } from '../Service/axios-helper'
+import { margin } from '@mui/system'
 
 function Dashboard() {
   const navigate=useNavigate();
@@ -14,6 +15,7 @@ function Dashboard() {
   const [user, setUser] = useState(null)
   const [order,SetOrder]=useState(null)
   const [modal, setModal] = useState(false);
+ 
   const[selectItem,setSelectItem]=useState(null);
 
   const toggle = () => setModal(!modal);
@@ -23,8 +25,8 @@ function Dashboard() {
   const openModal=(order)=>{
     setModal(true)
     setSelectItem(order)
-    console.log(selectItem)
-    console.log(selectItem.item[0].product.productName)
+    //console.log(selectItem)
+    //console.log(selectItem.item[0].product.productName)
   }
   let imagesStyle={
     width:'100%',
@@ -72,12 +74,15 @@ function Dashboard() {
                       <CardText>
                         <h5>{item.product.productName}</h5>
                         </CardText>
-                        <CardText>
-                        {item.product.productDesc}
+
+                        <CardText  dangerouslySetInnerHTML={ {__html:item.product.productDesc} }>
+                          
                         </CardText>
+
                         <CardText>
                         <h5>Quantity:<b>{item.quantity}</b></h5>
                         </CardText>
+
                         <CardText>
                         <h5>Prize:<b>{item.totalProductPrize}</b></h5>
                         </CardText>

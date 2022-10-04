@@ -2,18 +2,44 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import {Row,Col, FormGroup,Input,Table, Button, Container, CardBody,Card, Pagination, PaginationItem, PaginationLink} from "reactstrap"
+import {Row,Col,CardText, FormGroup,Input,Table, Button, Container, CardBody,Card, Pagination, PaginationItem, PaginationLink,Modal,ModalBody,ModalHeader,ModalFooter} from "reactstrap"
 import { loadProducts,deleteProduct as delete_product, loadSingleProduct } from "../../../Service/product-service";
 import { Link, useNavigate } from 'react-router-dom'
+import { Base_url } from '../../../Service/axios-helper'
+
 function AdminViewproduct(){
     const[product,setProduct]=useState(null)
     const[productSingle,setProductSingle]=useState(null);
+    const [modal, setModal] = useState(false);
+    const[clickProduct,setClickProduct]=useState(null);
+    const toggle = () => setModal(!modal);
+    const closeModol=()=>{
+        setModal(false)
+      }
+      const openModal=(clickProductId)=>{
+        setModal(true)
+       loadSingleProduct(clickProductId).then(data=>{
+        setClickProduct(data)
+        //console.log(clickProduct)
+       }).catch(error=>{
+        console.log(error)
+       })
+        //console.log(selectItem)
+      //console.log(selectItem.item[0].product.productName)
+      }
+      let imagesStyle={
+        width:'100%',
+        height:'300px',
+        objectFit:'contain',
+        margin:'15px 0',
+    }
+  
     useEffect(()=>{
        loadproductFromServer(0)
            
           
     },[])
-
+   
     const loadproductFromServer=(pageNumber)=>{
         loadProducts(pageNumber,2).then(data=>{
             setProduct(data)
@@ -21,10 +47,55 @@ function AdminViewproduct(){
             console.log(error)
         })
     }
+    const modelHtml=()=>{
+        return(
+           
+          <Modal isOpen={modal} toggle={closeModol} size="lg">
+          <ModalHeader toggle={closeModol}><h5>Product Id {clickProduct.productId}</h5></ModalHeader>
+          <ModalBody>
+          { 
+            
+              <Card className='mt-3 boder-0 shadow-sm'  color='light' >
+                <CardBody className='mt-3'>
+                   <Row >
+                      <Col md={8}>
+                          <CardText>
+                            <h5>Product Name : {clickProduct.productName}</h5>
+                            </CardText >
+    
+                            <CardText  dangerouslySetInnerHTML={ {__html:clickProduct.productDesc} }  >
+                            </CardText>
 
-    const viewProductAdmin=(productId)=>{
-       
-    }
+                            <CardText ><h5>{clickProduct.stock?"Available":"False"}</h5></CardText>
+    
+                            <CardText>
+                            <h5>Quantity : <b> {clickProduct.productQuantity}</b></h5>
+                            </CardText>
+    
+                            <CardText>
+                            <h5>Prize: ₹{clickProduct.productPrize}<b></b></h5>
+                            </CardText>
+                           
+                      </Col>
+                      <Col md={4}><img style={imagesStyle} src={Base_url+'/products/images/'+clickProduct.productId} alt="" /></Col>
+                            
+                   </Row>
+                </CardBody>
+              </Card>
+            
+          }
+            
+          </ModalBody>
+          <ModalFooter>
+           
+            <Button color="primary" size='sm' onClick={toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+        )
+      }
+    
 
     const UpdateProduct=(productId)=>{
       loadSingleProduct(productId).then(data=>{
@@ -91,7 +162,7 @@ function AdminViewproduct(){
                                         <td>{p.category.title}</td>
                                         <td>{p.productQuantity}</td>
                                         <td> 
-                                            <Button  tag={Link} to={'/viewproduct/'+p.productId}  color="primary"  size="sm" onClick={(event=>viewProductAdmin(p.productId))}>View</Button>
+                                            <Button    color="primary"  size="sm" onClick={()=>openModal(p.productId)}>View</Button>
                                             
                                         </td>
                                         <td>
@@ -124,14 +195,20 @@ function AdminViewproduct(){
         )
     }
     return(
-
+       
       <Container>
-        <Card >
+        <Card color="light" >
             <CardBody>
                 {product && produtcTableHtml()}
+                {clickProduct && modelHtml()}
             </CardBody>
         </Card>
+       
       </Container>
+
+    
+      
+     
         
     )
 }

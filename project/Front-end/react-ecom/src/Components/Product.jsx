@@ -28,7 +28,11 @@ const navigate=useNavigate()
         <CardBody>
             <h5>{product.productName.slice(0,10)}{product.productId}</h5>
         </CardBody>
-        <CardText dangerouslySetInnerHTML={ {__html:product.productDesc.slice(0,110)} }></CardText>
+
+        <CardText dangerouslySetInnerHTML={ {__html:product.productDesc.slice(0,110)} }>
+            
+        </CardText>
+
         <CardText  >
            
             <span  >

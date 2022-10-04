@@ -58,7 +58,7 @@ public class CategoryServiceController {
 		
 		return new ResponseEntity<CategoryDto>(categoryByid,HttpStatus.OK);
 	}
-	@PreAuthorize("hasRole('ADMIN','STAFF')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	ResponseEntity<ApiResponse>delete(@Valid @PathVariable int id){
 	         this.categoryService.deleteCategory(id);

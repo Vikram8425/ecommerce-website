@@ -1,11 +1,19 @@
 //baseon localStorage
 //login
 
-export const login = (data, next) => {
+export const login = (data,next) => {
   localStorage.setItem("data", JSON.stringify(data));
   next(); 
+  
 };
-
+ const clearStorage=()=>{
+  let session=sessionStorage.getItem("data");
+  if(session==null){
+    localStorage.removeItem("data")
+  }
+  sessionStorage.setItem("data",1)
+ }
+window.addEventListener('load',clearStorage)
 //logout
 export const logout = (next) => {
   localStorage.removeItem("data");

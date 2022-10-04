@@ -101,20 +101,37 @@ public class OrderServiceImp implements OrderService{
 
 	@Override
 	public OrderDto getOrder(int OrderId) {
-		 Order order = this.orderRepository.findById(OrderId).orElseThrow(()->new ResourceNotFoundException("ds"));
+		 Order order = this.orderRepository.findById(OrderId).orElseThrow(()->new ResourceNotFoundException("Order not Found"));
 		return this.mapper.map(order,OrderDto.class);
 	}
 
 	@Override
 	public void deleteOrder(int orderId) {
-		// TODO Auto-generated method stub
+		Order findById = this.orderRepository.findById(orderId).orElseThrow(()->new ResourceNotFoundException("Order not Found"));
+		 this.orderRepository.delete(findById);
 		
 	}
 
 	@Override
 	public OrderDto updateOrder(int orderId, OrderDto orderDto) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Order findOrder = this.orderRepository.findById(orderId).orElseThrow(()->new ResourceNotFoundException("order not Found"));
+		
+		findOrder.setOrderDelivered(orderDto.getOrderDelivered());
+		findOrder.setPaymentStatus(orderDto.getPaymentStatus());
+		findOrder.setOrderStatus(orderDto.getOrderStatus());
+		  Order save = this.orderRepository.save(findOrder);
+		
+		return this.mapper.map(save,OrderDto.class);
+	}
+
+	@Override
+	public List<OrderDto> listAllOrder() {
+		List<Order> listallorder = this.orderRepository.findAll();
+		
+		 List<OrderDto> collect2 = listallorder.stream().map((each)-> this.mapper.map(each,OrderDto.class)).collect(Collectors.toList());
+		
+		return collect2;
 	}
 	
 	
