@@ -33,7 +33,6 @@ function Addproduct(){
         addproduct(product,content).then(data=>{
             console.log(data)
             console.log(images)
-            
             toast.success("Product Added Successfully")
         }
         ).catch(error=>{

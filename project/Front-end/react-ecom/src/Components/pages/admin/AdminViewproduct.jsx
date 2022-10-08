@@ -2,16 +2,18 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import {Row,Col,CardText, FormGroup,Input,Table, Button, Container, CardBody,Card, Pagination, PaginationItem, PaginationLink,Modal,ModalBody,ModalHeader,ModalFooter} from "reactstrap"
+import {Row,Col,CardText, FormGroup,Input,Table, Button,Form ,Container, CardBody,Card, Pagination, PaginationItem, PaginationLink,Modal,ModalBody,ModalHeader,ModalFooter} from "reactstrap"
 import { loadProducts,deleteProduct as delete_product, loadSingleProduct } from "../../../Service/product-service";
 import { Link, useNavigate } from 'react-router-dom'
 import { Base_url } from '../../../Service/axios-helper'
+import { searchProduct as service_searchProduct } from "../../../Service/product-service";
 
 function AdminViewproduct(){
     const[product,setProduct]=useState(null)
     const[productSingle,setProductSingle]=useState(null);
     const [modal, setModal] = useState(false);
     const[clickProduct,setClickProduct]=useState(null);
+    
     const toggle = () => setModal(!modal);
     const closeModol=()=>{
         setModal(false)
@@ -39,6 +41,20 @@ function AdminViewproduct(){
            
           
     },[])
+
+    const[search,setSearch]=useState({
+      productName:''
+    })
+    const searchProduct=(event,fieldName)=>{
+      setSearch({...search,[fieldName]:event.target.value})
+      if(search.productName!=''){
+      service_searchProduct(search).then(data=>{
+        console.log(data)
+      }).catch(error=>{
+        console.log(error)
+      })
+    }
+    }
    
     const loadproductFromServer=(pageNumber)=>{
         loadProducts(pageNumber,2).then(data=>{
@@ -96,7 +112,7 @@ function AdminViewproduct(){
         )
       }
     
-
+  
     const UpdateProduct=(productId)=>{
       loadSingleProduct(productId).then(data=>{
         setProductSingle(data)
@@ -118,13 +134,17 @@ function AdminViewproduct(){
     const produtcTableHtml=()=>{
         return(
             <Row>
-
+              {JSON.stringify(search)}
             <Col md={20}>
-                    <FormGroup> 
+                    <FormGroup > 
+                      
                         <Input style={{
                              width:500,
                              marginLeft:225
-                        }} type="text" placeholder="Enter Product Name For Search" /> 
+                        }} type="text"  placeholder="Enter Product Name For Search" value={search.productName} onChange={(event)=>searchProduct(event,'productName')} ></Input>
+                        
+                      
+                       
                     </FormGroup>
 
                     <Table bordered responsive 

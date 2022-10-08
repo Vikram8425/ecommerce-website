@@ -55,4 +55,11 @@ export const update=(product,productId)=>{
 
 }
 
+export const searchProduct=(search)=>{
+  console.log(search.productName)
+  return PrivateHttp.get(`/product/search/${search.productName}`
+  ).then(res=>res.data);
+
+}
+
 

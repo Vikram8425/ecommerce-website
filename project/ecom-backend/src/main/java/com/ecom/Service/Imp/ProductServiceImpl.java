@@ -115,6 +115,7 @@ public class ProductServiceImpl implements ProductService{
 		Category category = this.catRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("not Found Category Id"));
 		
 		Pageable pageable=PageRequest.of(pageNumber, pageSize);
+		
 		 Page<Product> page=productRepository.findByCategory(category,pageable);
 		              List<Product> content = page.getContent();
 		
@@ -130,6 +131,20 @@ public class ProductServiceImpl implements ProductService{
       response.setTotalPages(page.getTotalPages());
 	  
 		return  response;
+	}
+
+	@Override
+	public List<ProductDto> findProduct(String  pname) {
+		
+		
+		
+		List<Product> product = this.productRepository.findByProductNameContaining(pname);
+		
+		
+		List<ProductDto> productdto= product.stream().map((each)->this.mapper.map(each,ProductDto.class)).collect(Collectors.toList());
+		  
+	      
+		     return productdto;
 	}
 
 }

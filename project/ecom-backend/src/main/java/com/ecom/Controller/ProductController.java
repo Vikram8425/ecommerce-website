@@ -113,9 +113,9 @@ public void downloadImage(@PathVariable int productId, HttpServletResponse respo
 	@GetMapping("product/{product_id}")
 	public ResponseEntity<ProductDto> getProductById(@PathVariable int product_id) {
 		
-	      ProductDto product=productService.getProduct(product_id);
+	      ProductDto productDto=productService.getProduct(product_id);
 		
-		return new ResponseEntity<ProductDto>(product,HttpStatus.OK);
+		return new ResponseEntity<ProductDto>(productDto,HttpStatus.OK);
 	}
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("product/{product_id}")
@@ -143,6 +143,16 @@ public void downloadImage(@PathVariable int productId, HttpServletResponse respo
 		ProductResponse productByCatgory =  this.productService.getProductByCatgory(categoryId, pageSize,pageNumber);
 		return productByCatgory;
 	
+	}
+	
+	@GetMapping("product/search/{name}")
+	public ResponseEntity<List<ProductDto>> findbyName(@PathVariable String name ){
+		
+		System.out.print(name);
+		List <ProductDto> findProduct = this.productService.findProduct(name);
+		
+		
+		return new ResponseEntity<List<ProductDto>>(findProduct,HttpStatus.OK);
 	}
 
 }
