@@ -28,6 +28,7 @@ import org.springframework.util.StreamUtils;
 import com.ecom.Model.Product;
 import com.ecom.Service.FileUpload;
 import com.ecom.Service.ProductService;
+import com.ecom.Service.Imp.FileUploadImp;
 import com.ecom.payload.ApiResponse;
 import com.ecom.payload.ProductDto;
 import com.ecom.payload.ProductResponse;
@@ -40,7 +41,7 @@ import com.ecom.config.AppConstants;
 public class ProductController {
 
 	@Autowired
-private FileUpload fileUpload;
+private FileUploadImp fileUpload;
 	@Autowired
 private	ProductService productService;
 	

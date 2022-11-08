@@ -22,8 +22,8 @@ export const loadSingleProduct=(productId)=>{
 
 export const addproduct=(product)=>{
   return PrivateHttp.post(`/categories/${product.productCategory}/product/`,product).then(res=>res.data)
+  
 }
-
 export const uploadProductImage=(images,productId)=>{
   const formData=new FormData();
   formData.append("product_image",images);

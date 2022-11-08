@@ -10,6 +10,7 @@ import { toast } from 'react-toastify'
 import {createOrder as createOrderService} from '../Service/order-service'
 import { useNavigate } from 'react-router-dom'
 import { checkLogin } from '../auth'
+import {createOrder as paymentOrder,successPayment} from '../Service/payment.service'
 function Cart() {
   const navigate=useNavigate()
   const value=useContext(context1)
@@ -84,6 +85,43 @@ const removeItemToCart=(item)=>{
   console.log(error);
  })
 }
+
+const initializeRazorpay=()=>{
+    return new Promise((res)=>{
+       const script=document.createElement("script");
+       script.src="https://checkout.razorpay.com/v1/checkout.js";
+
+       script.onload=()=>{
+        res(true);
+       }
+
+       script.onerror=()=>{
+        res(false);
+       }
+       document.body.appendChild(script);
+    })
+}
+
+async function initiatePayment(data){
+
+  const res=await initializeRazorpay();
+ 
+  if(res){
+    console.log("Razorpayintialized")
+    console.log(data.orderAmout)
+    paymentOrder(50).then(res=>{
+      console.log("res");
+      toast.success("order created")
+      
+    }).catch(error=>{
+      console.log(error)
+      toast.error("error in create order")
+    })
+  }else{
+    toast.error("Error in intitializing razorpay")
+  }
+
+}
 const createOrder=()=>{
     if(!window.confirm("Are You Sure Want to Proceed")){
       return;
@@ -93,7 +131,9 @@ const createOrder=()=>{
     console.log(orderDetails.address)
     createOrderService(orderDetails).then(data=>{
       toast.success("order Placed : Redirecting to payment Page")
-      navigate("/user/dashboard")
+     
+       initiatePayment(data);
+
     }).catch(error=>{
       console.log(error)
     })
