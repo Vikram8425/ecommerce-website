@@ -19,6 +19,7 @@ function Cart() {
       address:'',
       cartID:''
   })
+  const [orderCreated, setOrderCreated] = useState(false)
   
   useEffect(()=>{
     setTimeout(()=>{
@@ -89,7 +90,7 @@ const removeItemToCart=(item)=>{
 const initializeRazorpay=()=>{
     return new Promise((res)=>{
        const script=document.createElement("script");
-       script.src="https://checkout.razorpay.com/v1/checkout.js";
+       script.src='https://checkout.razorpay.com/v1/checkout.js';
 
        script.onload=()=>{
         res(true);
@@ -107,12 +108,66 @@ async function initiatePayment(data){
   const res=await initializeRazorpay();
  
   if(res){
-    console.log("Razorpayintialized")
-    console.log(data.orderAmout)
-    paymentOrder(50).then(res=>{
-      console.log("res");
+   // console.log("Razorpayintialized")
+   console.log(data.orderAmout)
+   console.log(typeof(data.orderAmout)) 
+    paymentOrder(data.orderAmout).then(res=>{
+      console.log(res);
       toast.success("order created")
       
+      // open payment form
+      if(res.message=='CREATED'){
+        console.log("method run");
+        var options = {
+          "key": "rzp_test_SJbSE1ULGg8Kqg", // Enter the Key ID generated from the Dashboard
+          "amount": res.price, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+          "currency": "INR",
+          "name": "VK Online Shoping",
+          "description": "This is learning payment module",
+          "image": "https://drive.google.com/file/d/15gWfGXJIEV4pNcD1dOLh8rdPgIbDY_fn/view?usp=share_link",
+          "order_id": res.orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+          "prefill": {
+              "name": "Vikram Kumar",
+              "email": "pmsecm@gmail.com",
+              "contact": "enter your mobile Number"
+          },
+          "notes": {
+              "address": ""
+          },
+          "theme": {
+              "color": "#3399cc"
+          }
+      };
+
+      options.handler=(response)=>{
+
+        response['user_order_id']=data.orderId
+        console.log(response)
+
+        successPayment(response).then(r=>{
+          console.log(r)
+          if(r.caputer){
+            toast.success("Payment done ....");
+            navigate("/user/dashboard");
+          }
+
+        }).catch(error =>{
+          console.log(error)
+          toast.error("error in capturing")
+        })
+        
+
+      }
+
+
+      const rzp=new window.Razorpay(options);
+      rzp.open();
+
+      }
+
+      
+
+
     }).catch(error=>{
       console.log(error)
       toast.error("error in create order")
@@ -128,13 +183,15 @@ const createOrder=()=>{
     }
     if(cart.iteam.length>0){
     orderDetails.cartID=cart.cartId;
-    console.log(orderDetails.address)
+    
     createOrderService(orderDetails).then(data=>{
       toast.success("order Placed : Redirecting to payment Page")
-     
+      setOrderCreated(true)
        initiatePayment(data);
-
+       console.log("userOrderDetail");
+        console.log(data);
     }).catch(error=>{
+       console.log("create order error")
       console.log(error)
     })
   }else{
@@ -215,9 +272,12 @@ const orderProceedHtml=()=>{
  
   const cartHtml=()=>{
     return(
-    
-        (orderProceed?orderProceedHtml():CartItemsHtml())
+      <Container>
+      {orderProceed ? orderCreated ? <h1>Order Create , Redirecting to payment...</h1> : orderProceedHtml():CartItemsHtml()}
 
+      </Container>
+    
+       
     )
   }
   return (

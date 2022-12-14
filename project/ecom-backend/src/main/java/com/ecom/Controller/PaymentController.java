@@ -26,31 +26,31 @@ public class PaymentController {
 	@PostMapping("/create")
 	public paymentOrderResponse createOrder(@RequestParam("price") int price) throws RazorpayException{
 		
-		RazorpayClient client=new RazorpayClient("rzp_test_1vWJdqyIYL58UU","qBTS5ne62JtxMqz0eg1rrGd0");
+		RazorpayClient client=new RazorpayClient("rzp_test_SJbSE1ULGg8Kqg","CY3E379plxtIUuQhomelNMVq");
 		
 		JSONObject option=new JSONObject();
 		option.put("amount",price*100);
 		option.put("currency","INR");
-		option.put("Receipt","vk123");
-		
+		option.put("receipt","vk123");
 		Order order = client.Orders.create(option);
 		System.out.println(order);
 		
 		paymentOrderResponse porder=new paymentOrderResponse();
 		porder.setMessage("CREATED");
-		porder.setPrice(order.get("amount"));
+		//porder.setPrice(order.get("amount")+"");
 		porder.setOrderId(order.get("id"));
 		porder.setOrderInformation("order just create from razopay server!!");
-		
 		return porder;
 	}
 	
 	//capture payment method
 	@PostMapping("/success")
-	public PaymentSuccessResponse capturePayment(@RequestParam("razorpay_payment_id") String razorpay_payment_id,
+	public PaymentSuccessResponse capturePayment(
+			@RequestParam("razorpay_payment_id") String razorpay_payment_id,
 			@RequestParam("razorpay_order_id") String razorpay_order_id,
 			@RequestParam("razorpay_signature") String razorpay_signature,
 			@RequestParam("user_order_id") int user_order_id
+			
 			) {
 		
 		//update the order => change to order Status to Success 
@@ -59,7 +59,7 @@ public class PaymentController {
  		this.orderService.updateOrder(user_order_id,dto);
  		
 		PaymentSuccessResponse  psuccess=new PaymentSuccessResponse();
-		psuccess.setUser_order_id(razorpay_order_id+"");
+		psuccess.setUser_order_id(user_order_id+"");
 		psuccess.setCaputer(true);
 		psuccess.setPaymentStatus("PAID");
 		

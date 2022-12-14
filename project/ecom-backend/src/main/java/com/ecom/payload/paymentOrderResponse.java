@@ -29,16 +29,16 @@ public class paymentOrderResponse {
 	public void setOrderInformation(String orderInformation) {
 		this.orderInformation = orderInformation;
 	}
+	public paymentOrderResponse() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public paymentOrderResponse(String message, String orderId, String price, String orderInformation) {
 		super();
 		this.message = message;
 		this.orderId = orderId;
 		this.price = price;
 		this.orderInformation = orderInformation;
-	}
-	public paymentOrderResponse() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	
